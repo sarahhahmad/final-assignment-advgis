@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Social Housing in Paris</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.0/mapbox-gl.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.0/mapbox-gl.js"></script>
+    <script src="https://unpkg.com/@turf/turf"></script>
+    <link rel="stylesheet" href="css/styles.css">
+
+</head>
+<!-- Formatting the title and container with the title-->
+
+<body>
+    <div id="main-container">
+        <nav>
+            <!--Adding buttons at the top, one to link to Github repo and one for more info about social housing laws in Paris. The About button has a pop-up that has more information-->
+            <div class="nav-links">
+                <div class="nav-links">
+                    <button class="nav-link" onclick="openAboutPopup()">About</button>
+                    <a class="nav-link" href="https://github.com/sarahhahmad/assignment-4-advgis" target="_blank"
+                        rel="noopener noreferrer">Github</a>
+                </div>
+                <div id="nav-about-popup" class="nav-popup">
+                    <div class="nav-popup-content">
+                        <span class="nav-popup-close" onclick="closeAboutPopup('nav-about-popup')">&times;</span>
+                        <p class="title">
+                     The <a href="https://www.ecologie.gouv.fr/loi-solidarite-et-renouvellement-urbain-sru">Law
+                                on
+                                Solidarity and Urban Renewal (SRU)</a>, first passed in 2000, set a target for
+                            municipalities
+                            in France of a certain size to “achieve a percentage of social rental housing among the
+                            total
+                            number
+                            of main residences." The first iteration of the law set the target percentage of social
+                            rental
+                            housing to 20%, which was then updated in the 2013 iteration of the law to 25% (with 2025 as
+                            the
+                            deadline to achieve this). 
+                        <p>Paris, being the largest city in France, is also held to this target. In fact, the City of
+                            Paris
+                            adopted the “Development and Renovation of the Housing Stock by 2035” strategy, which
+                            creates a 30%
+                            target for social housing. </p>
+                        </p>
+                    </div>
+                </div>
+                <div id="nav-popup-overlay" class="nav-popup-overlay"></div>
+            </div>
+
+
+
+            <!-- Formatting the side panel that has all the text and information about SRU and map functionality-->
+        </nav>
+        <div id="content-container">
+            <div id="sidebar">
+                <div class="title">
+                    <h1>The Distribution of Social Housing in Paris (as of January 2019)</h1>
+                    <h2>Existing Socio-Spacial Disparities and Opportunities for Socio-Spatial Equity in Future
+                        Construction</h2>
+                    <p></p>
+                </div>
+                <div class="accordion" id="sidebarAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                <strong>About This Map</strong>
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#sidebarAccordion">
+                            <div class="accordion-body">
+                                <p> This map consists of a few interactive datasets that show the distribution of social
+                                    housing in
+                                    Paris. You can choose to view the distribution of the inventory of social housing in
+                                    Paris across
+                                    its arrondissements. Clicking on an arrondissement shows more information about its
+                                    social housing
+                                    make-up. </p>
+                                <p>You can also choose to view the Social Housing Deficit Zones, areas in Paris that
+                                    have been
+                                    identified as having deficit social housing inventory. Alongside the zones are the
+                                    Special
+                                    Preservation Districts, where additional construction of housing is more limited
+                                    because of
+                                    preservation regulations.
+                                </p>
+                                <p>Finally, you can choose to toggle on and off the locations of social housing units
+                                    built in Paris
+                                    since 2000 alongside the Social Housing Distribution data or the Social Housing
+                                    Deficit Zone data.
+                                </p>
+                                <b>To learn more about social housing laws and policy goals in Paris, click the "About"
+                                    button.</b>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Adding accordion to sidebar so that extra text can collapse and not feel so overwhelming-->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                <strong>Why is This Important?</strong>
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#sidebarAccordion">
+                            <div class="accordion-body">
+                                <p>This map shows the distribution of the social housing stock in Paris as of January
+                                    2019,
+                                    which is the
+                                    most up-to-date <a
+                                        href="https://www.apur.org/en/our-works/map-social-housing-paris-situation-1st-january-2019">publicly
+                                        available data.</a> While Paris is on track to achieve its social housing goals
+                                    and
+                                    continues to
+                                    set higher targets for itself than is required nationally, there have been
+                                    criticisms of the inequities in distribution of the social housing stock within
+                                    Paris.
+                                    Social
+                                    housing units are disproportionately concentrated in the outer, eastern
+                                    arrondissements (or,
+                                    districts) or Paris, while the central and western arrondissements contain a much
+                                    smaller
+                                    share of
+                                    the city’s social housing stock. </p>
+                                In addition to building more social housing, the City of Paris seeks to reduce
+                                spatial inequities in the distribution of social housing, along with reducing
+                                concentrations of poverty. As such, mapping the existing distribution of social
+                                housing can show existing conditions, and aid in holding the city accountable in
+                                identifying sites for future social housing construction within the Social Housing
+                                Deficit Zones.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <button id='toggleDataset1Button'>View Distribution of Social Housing</button>
+                <button id="toggleDataset2Button">View Social Housing Deficit Zones</button>
+                <button id="toggleHousingUnitsButton">Toggle Social Housing Units</button>
+            </div>
+        </div>
+
+
+        <div id="map"></div>
+
+        <!-- Create legend that floats over the map in the bottom right corner, thank you to Henry Kanengiser for this code!!! -->
+        <div id="legend">
+            <b>KEY</b>
+            <div>
+                <span class="legend-subtitle"></span>
+                <span><b><i>% of Social Housing Units</i></b></span>
+            </div>
+            <div>
+                <span class="legend-key" style="background-color: #edf8fb;"></span>
+                <span>Less than 5%</span>
+            </div>
+            <div>
+                <span class="legend-key" style="background-color: #bfd3e6;"></span>
+                <span>5% to 10%</span>
+            </div>
+            <div>
+                <span class="legend-key" style="background-color: #9ebcda;"></span>
+                <span>10% to 15%</span>
+            </div>
+            <div>
+                <span class="legend-key" style="background-color: #8c96c6;"></span>
+                <span>15% to 20%</span>
+            </div>
+            <div>
+                <span class="legend-key" style="background-color: #8856a7;"></span>
+                <span>20% to 25%</span>
+            </div>
+            <div>
+                <span class="legend-key" style="background-color: #810f7c;"></span>
+                <span>More than 25%</span>
+            </div>
+        </div>
+        <!--Create a second legend that floats over the map in the bottom right corner when second dataset is toggled-->
+        <div id="legend2">
+            <b>KEY</b>
+            <div>
+                <span class="legend2-subtitle"></span>
+                <span><b><i>Identified Areas for Future Social Housing Construction</i></b></span>
+                <p></p>
+            </div>
+            <div>
+                <span class="legend2-key" style="background-color: #fb6a4a; border: 2px solid #fb6a4a;"></span>
+                <span>Social Housing Deficiency Zone</span>
+            </div>
+            <div>
+                <span class="legend2-key" style="background-color: transparent; border: 2px solid red;"></span>
+                <span>Special Preservation Districts</span>
+            </div>
+        </div>
+        <div>
+        </div>
+        <script src="js/scripts.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
+
+</body>
+
+</html>

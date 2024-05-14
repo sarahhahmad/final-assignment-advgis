@@ -1,0 +1,339 @@
+html,
+head,
+body,
+#main-container {
+    height: 100%;
+    width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #371043;
+}
+
+h1{
+    font: Helvetica;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+h2{
+    font: Helvetica;
+    font-size: 18px;
+}
+
+h3{
+    font: Helvetica;
+    font-size: 16px;
+}
+
+/** this is the styling for the entire page**/
+body {
+    margin: 0;
+    padding: 0;
+}
+/** this is the styling for the title container**/
+#main-container {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+
+/** styling for the About and Github buttons at the top of the screen**/
+.nav-links {
+    position: absolute; 
+    z-index: 10;
+    right: 36px;
+    top: 10px;
+    display: flex;
+}
+
+
+
+.nav-link {
+    background-color: #edeaee;
+    border: 0;
+    border-radius: .5rem;
+    box-sizing: border-box;
+    color: #371043;
+    font-family: "Inter var",ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    font-size: .875rem;
+    font-weight: 600;
+    line-height: 1.25rem;
+    padding: .5rem 1rem;
+    text-align: center;
+    text-decoration: none #D1D5DB solid;
+    text-decoration-thickness: auto;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+
+  .nav-link:hover {
+    background-color: rgb(249,250,251);
+  }
+  
+  .nav-link:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+  }
+  
+  .nav-link:focus-visible {
+    box-shadow: none;
+  }
+
+  /* Add margin-right to create space between buttons */
+.nav-link + .nav-link {
+    margin-left: 8px; /* Adjust the space as needed */
+}
+
+
+/** this is the styling for the side panel**/
+
+#content-container {
+    flex-grow: 1;
+    display: flex;
+    min-height: 0;
+}
+
+#sidebar {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    z-index: 1;
+    width: 460px;
+    background: #edeaee;
+    padding: 15px;
+    overflow-y: scroll;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 0px 2px 2px rgb(116 116 116);
+    -moz-box-shadow: 0px 0px 2px 2px rgb(116 116 116);
+    box-shadow: 0px 0px 2px 2px rgb(116 116 116)
+}
+
+#sidebar h1 {
+    font-size: 24px
+}
+
+#sidebar h2 {
+    font-size: 20px
+}
+
+#sidebar p {
+    font-size: 14px;
+}
+
+
+#sidebar h1 {
+    font-size: 20px;
+    margin-bottom: 5px; /* Add some bottom margin */
+}
+
+#sidebar h2 {
+    font-size:16px;
+    font-weight: 550;
+    margin-top: 0; /* Remove top margin */
+}
+
+
+#map {
+    height: 100%;
+    flex-grow: 1;
+}
+
+.title {
+    font-weight: 500;
+}
+
+
+@media only screen and (max-width: 800px) {
+    #content-container {
+        flex-direction: column-reverse;
+    }
+
+    #map {
+        height: 60%;
+        flex-shrink: 0;
+    }
+
+    #sidebar {
+        width: 100%;
+    }
+}
+
+/**styling for the buttons that activate the datasets on the map, also located in the sidebar**/
+#toggleDataset1Button {
+    display: inline-block;
+    margin-top: 10px;
+    margin-right: 15px;
+    font-size: .8rem;
+    font-weight: 600;
+    background-color: #fff;
+    border-width: .75px;
+    border-color: #371043;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    color: inherit;
+    text-decoration: none;
+}
+
+#toggleDataset1Button:hover {
+    background-color: #ececec;
+}
+
+#toggleDataset2Button {
+    display: inline-block;
+    margin-right: 15px;
+    margin-top: 10px;
+    font-size: .8rem;
+    font-weight: 600;
+    background-color: #fff;
+    border-width: .75px;
+    border-color:#371043;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    color: inherit;
+    text-decoration: none;
+}
+
+#toggleDataset2Button:hover {
+    background-color: #ececec;
+}
+
+#toggleHousingUnitsButton {
+    display: block;
+    margin-right: 15px;
+    margin-top: 10px;
+    font-size: .8rem;
+    font-weight: 600;
+    background-color: #fff;
+    border-width: .75px;
+    border-color:#371043;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    color: inherit;
+    text-decoration: none;
+}
+
+#toggleHousingUnitsButton:hover {
+    background-color: #ececec;
+}
+
+/* legend styles from https://docs.mapbox.com/help/tutorials/choropleth-studio-gl-pt-1/ */
+#legend {
+    position: absolute;
+    bottom: 20px; /* Position the legend 20px from the bottom */
+    right: 15px; /* Position the legend 15px from the right */
+    padding: 10px;
+    width: 150px;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
+    z-index: 10;
+    line-height: 18px;
+    border: 1px solid #8856a7;
+    background: #edeaee;
+    border-radius: 5px;
+    font-size: 12px;
+}
+  
+  .legend-key {
+    display: inline-block;
+    border-radius: 20%;
+    width: 10px;
+    height: 10px;
+    margin-right: 5px;
+  }
+
+  #legend2 {
+    display: none;
+    position: absolute;
+    bottom: 20px; /* Position the legend 20px from the bottom */
+    right: 15px; /* Position the legend 15px from the right */
+    padding: 10px;
+    width: 220px;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
+    z-index: 10;
+    line-height: 18px;
+    border: 1px solid #8856a7;
+    background: #edeaee;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+.legend2-key {
+    display: inline-block;
+    border-radius: 20%;
+    width: 10px;
+    height: 10px;
+    margin-right: 5px;
+}
+
+
+/**styling for About text and container that pops up when you click on it**/
+  .nav-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #edeaee;
+    padding: 20px;
+    border-radius: 5px;
+    z-index: 1000;
+    width: 700px
+}
+
+.nav-popup-content {
+    position: relative;
+}
+
+.nav-popup-close {
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    cursor: pointer;
+}
+
+.nav-popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+
+
+/** this is the styling for the pop-up (for choropleth)**/
+.mapboxgl-popup-content {
+    width: 250px;
+    /* Adjust width as needed */
+    max-height: 800px;
+    z-index: 20;
+    /* Adjust max height as needed */
+    overflow-y: auto;
+    /* Add scroll bar if content exceeds max height */
+    background-color:#e1e5ec;
+    font-size: 14px;
+}
+
+
+/**styling for accordion in sidebar**/
+.accordion-button {
+    color: #371043;
+    font-size: 14px; 
+    padding: 0.5rem 0.5rem; 
+}
+
+.accordion-body {
+    color: #371043;
+    font-size: 14px;
+}
